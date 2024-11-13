@@ -1,7 +1,3 @@
-// const templateIndex = await Deno.readTextFile("./templates/index.html");
-// const templatePasta = await Deno.readTextFile("./templates/pasta.html");
-// const templateError = await Deno.readTextFile("./templates/error.html");
-
 import { ORIGIN } from "./configs.ts";
 
 function escapeHtml(html: string) {
@@ -12,19 +8,24 @@ function escapeHtml(html: string) {
     .replaceAll('"', "&quot;");
 }
 
-export async function renderPasta(id: string, pasta: string) {
-  return (await Deno.readTextFile("./templates/pasta.html"))
-    .replaceAll("<!-- origin -->", escapeHtml(ORIGIN))
+const templateIndex = (await Deno.readTextFile("./templates/index.html"))
+  .replaceAll("<!-- origin -->", escapeHtml(ORIGIN));
+const templatePasta = (await Deno.readTextFile("./templates/pasta.html"))
+  .replaceAll("<!-- origin -->", escapeHtml(ORIGIN));
+const templateError = (await Deno.readTextFile("./templates/error.html"))
+  .replaceAll("<!-- origin -->", escapeHtml(ORIGIN));
+
+export function renderPasta(id: string, pasta: string) {
+  return templatePasta
     .replaceAll("<!-- id -->", id)
     .replaceAll("<!-- pasta -->", escapeHtml(pasta));
 }
 
-export async function renderError(msg: string) {
-  return (await Deno.readTextFile("./templates/error.html"))
+export function renderError(msg: string) {
+  return templateError
     .replaceAll("<!-- error-message -->", msg);
 }
 
-export async function renderIndex() {
-  return (await Deno.readTextFile("./templates/index.html"))
-    .replaceAll("<!-- origin -->", escapeHtml(ORIGIN));
+export function renderIndex() {
+  return templateIndex;
 }
