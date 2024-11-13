@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run --unstable-kv --watch main.ts"
+  },
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.6.9",
+    "@std/encoding": "jsr:@std/encoding@^1.0.5"
+  }
+}
