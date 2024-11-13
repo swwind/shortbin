@@ -1,5 +1,6 @@
 import { encodeBase58 } from "@std/encoding";
-const kv = await Deno.openKv();
+import { DBFILE } from "./configs.ts";
+const kv = await Deno.openKv(DBFILE);
 
 function randomBytes(step: number) {
   const bytes = crypto.getRandomValues(new Uint8Array(step));
