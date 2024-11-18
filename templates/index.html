@@ -44,10 +44,9 @@
     </p>
     <hr>
     <h2>Documents</h2>
-    <p>For upload text files / logs, do the following.</p>
+    <p>For upload text files / logs...</p>
     <pre><code>cat example.txt | curl "<!-- origin -->/" -F "c=@-"</code></pre>
-    <pre><code>curl "<!-- origin -->/" -F "c=@example.txt"</code></pre>
-    <p>For shorten URL, do the following.</p>
+    <p>For shorten URL...</p>
     <pre><code>echo "https://example.com/" | curl "<!-- origin -->/u" -d "@-"</code></pre>
     <pre><code>curl "<!-- origin -->/u" -d "https://example.com/"</code></pre>
   </div>
@@ -78,8 +77,9 @@
         error.textContent = `${req.status} ${resp}`;
         return;
       }
-      result.href = resp.trim();
-      result.textContent = resp.trim();
+      const link = resp.split('\n')[0].trim();
+      result.href = link;
+      result.textContent = link;
       copy.style.display = 'inline-block';
       copy.textContent = 'Copy';
       error.textContent = "";
@@ -105,7 +105,8 @@
       if (req.status != 200) {
         return alert(resp)
       }
-      location.href = resp.trim();
+      const link = resp.split('\n')[0].trim()
+      location.href = link;
     });
 
   </script>

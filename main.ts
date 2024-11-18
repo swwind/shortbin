@@ -1,7 +1,7 @@
 import "@std/dotenv/load";
 import { Hono } from "@hono/hono";
 import { serveStatic } from "@hono/hono/deno";
-import { createPasta, getPasta } from "./kv.ts";
+import { createPasta, getPasta, SEVEN_DAYS } from "./kv.ts";
 import { renderError, renderIndex, renderPasta } from "./templates.ts";
 import { AUTH_TOKEN, HOSTNAME, ORIGIN, PORT } from "./configs.ts";
 
@@ -53,11 +53,11 @@ app.post("/", async (c) => {
     return c.text("Content is empty", 400);
   }
 
-  const res = await createPasta({ type: "pasta", value });
+  const res = await createPasta({ type: "pasta", value }, SEVEN_DAYS);
   if (!res.ok) {
     return c.text("KV error", 500);
   }
-  return c.text(`${ORIGIN}/${res.id}\n`);
+  return c.text(`${ORIGIN}/${res.id}\nYour data will expire after 7 days.`);
 });
 
 // shorten URL, use -d "@-"
@@ -76,10 +76,10 @@ app.post("/u", async (c) => {
   if (!res.ok) {
     return c.text("KV error", 500);
   }
-  return c.text(`${ORIGIN}/${res.id}\n`);
+  return c.text(`${ORIGIN}/${res.id}\nThis link never expires.`);
 });
 
-app.use("/*", serveStatic({ root: "./public" }));
+app.get("/*", serveStatic({ root: "./public" }));
 app.get("/*", (c) => {
   return c.html(renderError("404 Not Found"), 404);
 });

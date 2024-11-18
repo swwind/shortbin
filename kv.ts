@@ -28,10 +28,13 @@ export async function getPasta(id: string) {
   return await kv.get<Pasta>(["pasta", id]);
 }
 
-export async function createPasta(pasta: Pasta) {
+export const SEVEN_DAYS = 1000 * 60 * 60 * 24 * 7;
+
+export async function createPasta(pasta: Pasta, expires?: number) {
+  const options = expires ? { expireIn: Date.now() + expires } : undefined;
   const id = await randomId();
   const res = await kv.atomic()
     .check({ key: ["pasta", id], versionstamp: null })
-    .set(["pasta", id], pasta).commit();
+    .set(["pasta", id], pasta, options).commit();
   return { ok: res.ok, id };
 }
