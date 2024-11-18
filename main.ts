@@ -57,7 +57,7 @@ app.post("/", async (c) => {
   if (!res.ok) {
     return c.text("KV error", 500);
   }
-  return c.text(`${ORIGIN}/${res.id}\nYour data will expire after 7 days.`);
+  return c.text(`${ORIGIN}/${res.id}\n`);
 });
 
 // shorten URL, use -d "@-"
@@ -76,7 +76,7 @@ app.post("/u", async (c) => {
   if (!res.ok) {
     return c.text("KV error", 500);
   }
-  return c.text(`${ORIGIN}/${res.id}\nThis link never expires.`);
+  return c.text(`${ORIGIN}/${res.id}\n`);
 });
 
 app.get("/*", serveStatic({ root: "./public" }));
