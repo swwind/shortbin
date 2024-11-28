@@ -3,7 +3,7 @@ import { Hono } from "@hono/hono";
 import { serveStatic } from "@hono/hono/deno";
 import { createPasta, getPasta, SEVEN_DAYS } from "./kv.ts";
 import { renderError, renderIndex, renderPasta } from "./templates.ts";
-import { AUTH_TOKEN, HOSTNAME, ORIGIN, PORT } from "./configs.ts";
+import { AUTH_TOKEN, HOSTNAME, ORIGIN, PORT } from "./envs.ts";
 
 const app = new Hono();
 

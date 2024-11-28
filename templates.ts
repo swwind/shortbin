@@ -1,4 +1,4 @@
-import { ORIGIN } from "./configs.ts";
+import { ORIGIN } from "./envs.ts";
 
 function escapeHtml(html: string) {
   return html
@@ -17,13 +17,13 @@ const templateError = (await Deno.readTextFile("./templates/error.html"))
 
 export function renderPasta(id: string, pasta: string) {
   return templatePasta
-    .replaceAll("<!-- id -->", id)
+    .replaceAll("<!-- id -->", escapeHtml(id))
     .replaceAll("<!-- pasta -->", escapeHtml(pasta));
 }
 
 export function renderError(msg: string) {
   return templateError
-    .replaceAll("<!-- error-message -->", msg);
+    .replaceAll("<!-- error-message -->", escapeHtml(msg));
 }
 
 export function renderIndex() {

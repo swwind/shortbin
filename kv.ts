@@ -1,5 +1,5 @@
 import { encodeBase58 } from "@std/encoding";
-import { DBFILE } from "./configs.ts";
+import { DBFILE } from "./envs.ts";
 const kv = await Deno.openKv(DBFILE);
 
 function randomBytes(step: number) {
