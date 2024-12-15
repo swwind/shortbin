@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "deno run --unstable-kv --allow-read=. --allow-write=. --allow-net --allow-env main.ts",
+    "start": "deno run --lock --unstable-kv -A main.ts",
     "dev": "deno run --unstable-kv --watch main.ts"
   },
   "imports": {
